@@ -44,7 +44,7 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.4.15",
     "@nestjs/swagger": "^8.1.1",
-    "@nestjs/terminus": "^10.3.0",
+    "@nestjs/terminus": "^11.0.0",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/auto-instrumentations-node": "^0.56.0",
     "@opentelemetry/context-async-hooks": "1.30.1",
