@@ -28,7 +28,7 @@ importers:
         version: 2.1.0(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)
       '@nestjs/microservices':
         specifier: ^10.4.15
-        version: 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.5.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+        version: 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/passport':
         specifier: ^10.0.3
         version: 10.0.3(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(passport@0.7.0)
@@ -105,8 +105,8 @@ importers:
         specifier: ^9.15.1
         version: 9.15.1
       ioredis:
-        specifier: ^5.5.0
-        version: 5.5.0
+        specifier: ^5.6.0
+        version: 5.6.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -3176,8 +3176,8 @@ packages:
     resolution: {integrity: sha512-NGnrKwXzSms2qUUih/ILZ5JBqNTSa1+ZmP6flaIp6KmSElgE9qdndzS3cqjrDovwFdmwsGsLdeFgB6suw+1e9g==}
     engines: {node: '>= 0.4'}
 
-  ioredis@5.5.0:
-    resolution: {integrity: sha512-7CutT89g23FfSa8MDoIFs2GYYa0PaNiW/OrT+nRyjRXHDZd17HmIgy+reOQ/yhh72NznNjGuS8kbCAcA4Ro4mw==}
+  ioredis@5.6.0:
+    resolution: {integrity: sha512-tBZlIIWbndeWBWCXWZiqtOF/yxf6yZX3tAlTJ7nfo5jhd6dctNxF7QnYlZLZ1a0o0pDoen7CgZqO+zjNaFbJAg==}
     engines: {node: '>=12.22.0'}
 
   ipaddr.js@1.9.1:
@@ -5660,7 +5660,7 @@ snapshots:
       tslib: 2.8.1
       uid: 2.0.2
     optionalDependencies:
-      '@nestjs/microservices': 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.5.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/microservices': 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/platform-express': 10.4.15(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)
     transitivePeerDependencies:
       - encoding
@@ -5687,7 +5687,7 @@ snapshots:
       class-transformer: 0.5.1
       class-validator: 0.14.1
 
-  '@nestjs/microservices@10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.5.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)':
+  '@nestjs/microservices@10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)':
     dependencies:
       '@nestjs/common': 10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 10.4.15(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/microservices@10.4.15)(@nestjs/platform-express@10.4.15)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -5698,7 +5698,7 @@ snapshots:
     optionalDependencies:
       '@grpc/grpc-js': 1.12.6
       cache-manager: 5.7.6
-      ioredis: 5.5.0
+      ioredis: 5.6.0
 
   '@nestjs/passport@10.0.3(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(passport@0.7.0)':
     dependencies:
@@ -5765,7 +5765,7 @@ snapshots:
     optionalDependencies:
       '@grpc/grpc-js': 1.12.6
       '@grpc/proto-loader': 0.7.13
-      '@nestjs/microservices': 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.5.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/microservices': 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@prisma/client': 5.22.0(prisma@6.4.1(typescript@5.8.2))
 
   '@nestjs/testing@10.4.15(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(@nestjs/microservices@10.4.15)(@nestjs/platform-express@10.4.15)':
@@ -5774,7 +5774,7 @@ snapshots:
       '@nestjs/core': 10.4.15(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/microservices@10.4.15)(@nestjs/platform-express@10.4.15)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       tslib: 2.8.1
     optionalDependencies:
-      '@nestjs/microservices': 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.5.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/microservices': 10.4.15(@grpc/grpc-js@1.12.6)(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)(cache-manager@5.7.6)(ioredis@5.6.0)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/platform-express': 10.4.15(@nestjs/common@10.4.15(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@10.4.15)
 
   '@nodelib/fs.scandir@2.1.5':
@@ -7226,7 +7226,7 @@ snapshots:
   cache-manager-ioredis-yet@2.1.2:
     dependencies:
       cache-manager: 5.7.6
-      ioredis: 5.5.0
+      ioredis: 5.6.0
       telejson: 7.2.0
     transitivePeerDependencies:
       - supports-color
@@ -8402,7 +8402,7 @@ snapshots:
       hasown: 2.0.2
       side-channel: 1.0.6
 
-  ioredis@5.5.0:
+  ioredis@5.6.0:
     dependencies:
       '@ioredis/commands': 1.2.0
       cluster-key-slot: 1.1.2
