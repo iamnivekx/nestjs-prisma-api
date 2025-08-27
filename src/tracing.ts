@@ -23,34 +23,33 @@ import { CompositePropagator, W3CBaggagePropagator, W3CTraceContextPropagator } 
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { B3InjectEncoding, B3Propagator } from '@opentelemetry/propagator-b3';
-import { Resource } from '@opentelemetry/resources';
+import { resourceFromAttributes } from '@opentelemetry/resources';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import { PrismaInstrumentation } from '@prisma/instrumentation';
 
 import 'dotenv/config';
 
-const { OTLP_SERVICE_NAME = 'nestjs-app', OTLP_PROM_PORT, OTLP_TRACES_ENDPOINT } = process.env;
+const { OTLP_SERVICE_NAME = 'nestjs-app', OTLP_PROM_PORT } = process.env;
 
-const prometheusExporter = new PrometheusExporter({
+const metricReader = new PrometheusExporter({
   endpoint: '/metrics',
   port: Number(OTLP_PROM_PORT) || 8081,
 });
 
-const traceExporter = new OTLPTraceExporter({ url: OTLP_TRACES_ENDPOINT });
+const traceExporter = new OTLPTraceExporter();
 
 const spanProcessor = new BatchSpanProcessor(traceExporter);
 
 export const otelSDK = new NodeSDK({
   // Optional - If omitted, the metrics SDK will not be initialized
-  metricReader: prometheusExporter,
-  // metricReader: new PrometheusExporter({ port: 8081, endpoint: '/metrics' }),
-  spanProcessor: spanProcessor,
+  metricReader,
+  spanProcessor,
   contextManager: new AsyncLocalStorageContextManager(),
   instrumentations: [
     getNodeAutoInstrumentations({
-      '@opentelemetry/instrumentation-nestjs-core': { enabled: false },
+      '@opentelemetry/instrumentation-nestjs-core': { enabled: true },
       '@opentelemetry/instrumentation-pg': { enabled: true },
       '@opentelemetry/instrumentation-pino': { enabled: true },
       '@opentelemetry/instrumentation-http': { enabled: true },
@@ -59,8 +58,8 @@ export const otelSDK = new NodeSDK({
     }),
     new PrismaInstrumentation(),
   ],
-  resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: OTLP_SERVICE_NAME,
+  resource: resourceFromAttributes({
+    [ATTR_SERVICE_NAME]: OTLP_SERVICE_NAME,
   }),
   textMapPropagator: new CompositePropagator({
     propagators: [

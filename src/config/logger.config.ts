@@ -23,13 +23,15 @@ function createPrettyEntry(app: string, level: pino.Level) {
  * https://github.com/pinojs/pino/blob/master/docs/transports.md#pino-loki
  * @returns
  */
-function createLokiEntry(app: string, level: pino.Level, host: string) {
+function createLokiEntry(app: string, level: pino.Level, host: string, username?: string, password?: string) {
   const stream = pinoLoki({
     replaceTimestamp: true,
     batching: true,
     interval: 5,
 
     host, // Change if Loki hostname is different
+
+    basicAuth: username && password ? { username, password } : undefined,
 
     labels: { app },
   });
@@ -56,10 +58,10 @@ function createFileEntry(app: string, level: pino.Level, filepath: string) {
  * the destination stream
  * @returns
  */
-function getMultiDestinationStream(app: string, level: pino.Level = 'info', filepath?: string, loki?: string) {
+function getMultiDestinationStream(app: string, level: pino.Level = 'info', filepath?: string, lokiHost?: string, lokiUsername?: string, lokiPassword?: string) {
   const entries: pino.StreamEntry[] = [createPrettyEntry(app, level)];
   if (filepath) entries.push(createFileEntry(app, level, filepath));
-  if (loki) entries.push(createLokiEntry(app, level, loki));
+  if (lokiHost) entries.push(createLokiEntry(app, level, lokiHost, lokiUsername, lokiPassword));
 
   return pino.multistream(entries);
 }
@@ -159,10 +161,12 @@ export function getLoggerModuleOptions(configService: ConfigService): Params {
   const app = configService.get('OTLP_SERVICE_NAME') || 'app';
   const level = configService.get('LOG_LEVEL') || 'info';
   const filename = configService.get('LOG_FILE');
-  const loki = configService.get('LOG_LOKI');
+  const lokiHost = configService.get('LOG_LOKI_HOST');
+  const lokiUsername = configService.get('LOG_LOKI_USERNAME');
+  const lokiPassword = configService.get('LOG_LOKI_PASSWORD');
 
   return {
-    pinoHttp: [getPinoHttpOption(level), getMultiDestinationStream(app, level, filename, loki)],
+    pinoHttp: [getPinoHttpOption(level), getMultiDestinationStream(app, level, filename, lokiHost, lokiUsername, lokiPassword)],
     // (See https://docs.nestjs.com/middleware#excluding-routes for options)
     exclude: [
       { method: RequestMethod.GET, path: '/health' },

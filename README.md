@@ -1,130 +1,210 @@
-# Nestjs Prisma Template
+# NestJS Prisma API Template
 
-This is an opinionated template for Nestjs prisma restful projects.
+A modern RESTful API template built with NestJS and Prisma, featuring comprehensive monitoring, logging, and deployment solutions.
 
-## Features
+## ✨ Features
 
-- [x] Platform: [Express](https://expressjs.com/)
-- [x] Database:
-  - [x] ORM: [Prisma](https://prisma.io)
-  - [ ] Redis: [Redis](https://github.com/songkeys/nestjs-redis)
-- Cache Manager: [cache-manager](https://github.com/nestjs/cache-manager)
-- [x] Logger: [Pino](https://github.com/pinojs/pino)
+### 🚀 Core Technology Stack
 
-  - [nestjs-pino](https://github.com/iamolegga/nestjs-pino)
-  - [rotating-file-stream](https://github.com/iccicci/rotating-file-stream)
-  - [pino-pretty](https://github.com/pinojs/pino-pretty) in development
-  - [pino-loki](https://github.com/Julien-R44/pino-loki)
+- **Framework**: [NestJS](https://nestjs.com/) + [Express](https://expressjs.com/)
+- **Database**: [Prisma](https://prisma.io) ORM
+- **Logging**: [Pino](https://github.com/pinojs/pino) + [nestjs-pino](https://github.com/iamolegga/nestjs-pino)
+- **Caching**: [cache-manager](https://github.com/nestjs/cache-manager)
 
-- [x] health
-- [x] Authentication: [Passport](https://github.com/nestjs/passport)
-  - JWT: [passport-jwt](https://www.passportjs.org/packages/passport-jwt/)
-  - Google: [passport-google-oauth20](https://www.passportjs.org/packages/passport-google-oauth20/)
-- [x] Swagger: [@nestjs/swagger](https://github.com/nestjs/swagger)
-- [x] Tracing: [nestjs-otel](https://github.com/pragmaticivan/nestjs-otel)
-  - [x] [grafana](https://grafana.com/docs/grafana/latest/)
-  - [x] [loki](https://grafana.com/docs/loki/latest/)
-  - [x] [prometheus](https://prometheus.io/)
-  - [x] [promtail](https://grafana.com/docs/loki/latest/send-data/promtail/)
-  - [x] [tempo](https://grafana.com/docs/tempo/latest)
-  - [x] [alertmanager](https://grafana.com/docs/grafana/latest/alerting/set-up/migrating-alerts/legacy-alerting/grafana-cloud-alerting/alertmanager/)
-- [x] k8s
+### 🔐 Authentication & Authorization
 
-## Guide
+- **Auth Strategy**: [Passport](https://github.com/nestjs/passport)
+  - JWT Authentication: [passport-jwt](https://www.passportjs.org/packages/passport-jwt/)
+  - Google OAuth: [passport-google-oauth20](https://www.passportjs.org/packages/passport-google-oauth20/)
 
-### Development
+### 📊 Monitoring & Observability
 
-Init environment variables:
+- **API Documentation**: [Swagger](https://github.com/nestjs/swagger)
+- **Distributed Tracing**: [OpenTelemetry](https://github.com/pragmaticivan/nestjs-otel)
+- **Metrics**: [Prometheus](https://prometheus.io/)
+- **Log Aggregation**: [Grafana Loki](https://grafana.com/docs/loki/latest/)
+- **Alerting**: [Alertmanager](https://grafana.com/docs/grafana/latest/alerting/set-up/migrating-alerts/legacy-alerting/grafana-cloud-alerting/alertmanager/)
+
+### 🐳 Deployment & Operations
+
+- **Containerization**: Docker + Docker Compose
+- **Orchestration**: Kubernetes configurations
+- **Health Checks**: Built-in health check endpoints
+
+## 🚀 Quick Start
+
+### Environment Setup
+
+1. **Clone the project**
 
 ```bash
-cp .env.example .env
+git clone https://github.com/iamnivekx/nestjs-prisma-api
+cd nestjs-prisma-api
 ```
 
-Install dependencies:
+2. **Install dependencies**
 
 ```bash
 pnpm install
 ```
 
-Generate Prisma client:
+3. **Environment configuration**
 
 ```bash
-pnpm run prisma:migrate
+cp .env.example .env
+# Edit .env file to configure database connection and other settings
 ```
 
-Migrate database:
+4. **Database initialization**
 
 ```bash
+# Generate Prisma client
+pnpm run prisma:generate
+
+# Run database migrations
 pnpm run prisma:migrate:dev
 ```
 
-Run the app:
+5. **Start development server**
 
 ```bash
 pnpm run start:dev
 ```
 
-### Deployment with docker
+The application will start at `http://127.0.0.1:4000`, with Swagger documentation available at `http://127.0.0.1:4000/docs`.
 
-Docker:
+## ⚙️ Configuration Guide
+
+### Grafana Cloud Configuration
+
+#### 1. Configure Loki Log Collection
+
+Visit [Grafana Cloud Logs]`https://grafana.com/orgs/{your-org-id}/hosted-logs/{your-dashboard-id}#sending-logs` to get configuration information.
+
+Configure in your `.env` file:
+
+```bash
+LOG_LOKI_HOST="your-loki-url"
+LOG_LOKI_USERNAME="your-username"
+LOG_LOKI_PASSWORD="Basic <Your Grafana.com API Token>"
+```
+
+#### 2. Configure OpenTelemetry Tracing
+
+Visit [Grafana Cloud OTLP]`https://grafana.com/orgs/{your-org-id}/stacks/{your-stack-id}/otlp-info` to get configuration information.
+
+Configure in your `.env` file:
+
+```bash
+OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
+OTEL_EXPORTER_OTLP_ENDPOINT="https://otlp-gateway-prod-ap-southeast-1.grafana.net/otlp"
+OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic {your-api-key}"
+```
+
+![Grafana Cloud](./docs/cloud.png)
+
+### Grafana Docker Environment
+
+Use [dockotlp](https://github.com/iamnivekx/dockotlp) to quickly set up a local monitoring environment:
+
+```bash
+git clone https://github.com/iamnivekx/dockotlp.git
+cd dockotlp
+docker compose up -d
+```
+
+## 🐳 Deployment
+
+### Docker Deployment
+
+1. **Build image**
 
 ```bash
 docker-compose build
 ```
 
-### start docker-compose
+2. **Start services**
 
 ```bash
 docker-compose up -d
 ```
 
-In Node.js Environment:
+### Production Deployment
+
+1. **Install dependencies and build**
 
 ```bash
 pnpm install
 pnpm run build
+```
+
+2. **Start production service**
+
+```bash
 pnpm run start:prod
 ```
 
-### Migrate database
+### Database Migrations
 
-Development:
+- **Development**: `pnpm run prisma:migrate:dev`
+- **Production**: `pnpm run prisma:migrate:deploy`
 
-```bash
-pnpm run prisma:migrate:dev
+## 📸 Feature Preview
+
+### API Documentation (Swagger)
+
+![Swagger API Documentation](./docs/swagger.jpg)
+
+### OpenTelemetry Distributed Tracing
+
+![OpenTelemetry Tracing](./docs/opentelemetry.jpg)
+
+### Prometheus Metrics Monitoring
+
+![Prometheus Monitoring](./docs/prom.jpg)
+
+### Alert Management
+
+![Alert Management](./docs/alert.jpg)
+
+### Kubernetes Deployment
+
+![Kubernetes](./docs/k8s.jpg)
+
+### Ingress Configuration
+
+![Ingress](./docs/ingress.jpg)
+
+## 📁 Project Structure
+
+```
+src/
+├── api/                    # API modules
+│   ├── auth/             # Authentication module
+│   ├── health/           # Health checks
+│   └── users/            # User management
+├── common/                # Common modules
+│   ├── constants/        # Constant definitions
+│   ├── decorators/       # Custom decorators
+│   └── guards/           # Guards
+├── config/                # Configuration module
+├── entities/              # Data entities
+├── prisma/                # Prisma configuration
+└── services/              # Business services
 ```
 
-Production:
+## 🤝 Contributing
 
-```bash
-pnpm run prisma:migrate:deploy
-```
+Issues and Pull Requests are welcome!
 
-## Overview
+## 📄 License
 
-swagger
+This project is licensed under the MIT License.
 
-![swagger](./docs/swagger.jpg)
+## 🙏 Acknowledgments
 
-`opentelemetry`
-
-![opentelemetry](./docs/opentelemetry.jpg)
-
-`prometheus`
-
-![prom](./docs/prom.jpg)
-
-`alerting`
-![alert](./docs/alert.jpg)
-
-`k8s`
-![k8s](./docs/k8s.jpg)
-
-`ingress`
-![ingress](./docs/ingress.jpg)
-
-## Acknowledgements
-
-- [nestjs-prisma](https://github.com/notiz-dev/nestjs-prisma)
-- [nestjs-otel](https://github.com/pragmaticivan/nestjs-otel)
-- [nestjs-otel-prom-grafana-tempo](https://github.com/pragmaticivan/nestjs-otel-prom-grafana-tempo)
+- [grafana](https://grafana.com) - Grafana
+- [dockotlp](https://github.com/iamnivekx/dockotlp) - Docker OpenTelemetry Prometheus Loki Grafana environment
+- [nestjs-prisma](https://github.com/notiz-dev/nestjs-prisma) - NestJS Prisma integration
+- [nestjs-otel](https://github.com/pragmaticivan/nestjs-otel) - OpenTelemetry integration
+- [nestjs-otel-prom-grafana-tempo](https://github.com/pragmaticivan/nestjs-otel-prom-grafana-tempo) - Monitoring stack integration examples

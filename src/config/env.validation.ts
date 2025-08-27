@@ -32,15 +32,23 @@ export class EnvironmentVariables {
 
   @Expose()
   @IsString()
-  LOG_LOKI: string;
-
-  @Expose()
-  @IsString()
   LOG_LEVEL: string;
 
   @Expose()
   @IsString()
   LOG_FILE: string;
+
+  @Expose()
+  @IsString()
+  LOG_LOKI_HOST: string;
+
+  @Expose()
+  @IsString()
+  LOG_LOKI_USERNAME: string;
+
+  @Expose()
+  @IsString()
+  LOG_LOKI_PASSWORD: string;
 
   @Expose()
   @IsString()
