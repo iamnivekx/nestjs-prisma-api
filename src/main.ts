@@ -20,8 +20,8 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  const NODE_ENV: string = configService.get('NODE_ENV')!;
-  const HTTP_PORT: string = configService.get('HTTP_PORT')!;
+  const NODE_ENV: string = configService.get<string>('NODE_ENV') ?? 'development';
+  const HTTP_PORT: string = configService.get<string>('HTTP_PORT') ?? '4000';
 
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
   app.useLogger(logger);
@@ -36,7 +36,11 @@ async function bootstrap() {
     },
   });
 
-  await app.listen(HTTP_PORT);
+  app.enableShutdownHooks();
+
+  const server = await app.listen(HTTP_PORT);
+
+  otelSDK.setupGracefulShutdown(server);
 
   const url = await app.getUrl();
   logger.log(`📈 Started OTEL SDK, Application is running on: ${url} env ${NODE_ENV}`);
