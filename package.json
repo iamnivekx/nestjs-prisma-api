@@ -42,7 +42,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/microservices": "^10.4.15",
     "@nestjs/passport": "^10.0.3",
-    "@nestjs/platform-express": "^10.4.15",
+    "@nestjs/platform-express": "^10.4.22",
     "@nestjs/swagger": "^8.1.1",
     "@nestjs/terminus": "^10.3.0",
     "@opentelemetry/api": "^1.9.0",
